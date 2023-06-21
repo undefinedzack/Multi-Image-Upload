@@ -27,11 +27,16 @@ export default function Home() {
     setImages(updatedImages);
   };
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop: handleDrop, accept: 'image/*', multiple: true });
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: handleDrop,
+    accept: {
+      image: ['jpeg', 'png'], 
+    },
+    multiple: true,
+  });
 
   useEffect(() => {
     return () => {
-      // Clean up the created object URLs when the component unmounts
       images.forEach((image) => URL.revokeObjectURL(image.preview));
     };
   }, [images]);
